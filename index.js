@@ -3,6 +3,9 @@ window.onload = function () {
     // let draw;
     // let xline;
 
+    let xAxis = document.querySelector('.cg-xAxis');
+    let yAxis = document.querySelector('.cg-yAxis');
+
     $("#mySpriteSpin").spritespin({
         source: SpriteSpin.sourceArray('img/zol{frame}.jpg',
             {
@@ -46,16 +49,19 @@ window.onload = function () {
         onDraw: function (e, data) {
             //когда прошли вычисления для измения кадра и кадр сейчас будет отрисован
             //console.log('onDraw');
+            // xAxis.style.transform
         },
 
         onFrame: function (e, data) {
+            
             //когда поступил запрос на изменение текущего кадра
             // console.log('текущий кадр',data.frame);
+            // console.log('угол', getAngleFromFrameNumber(data.frame))
+            // xAxis.style.transform = `rotate3d(0,1,0,145deg) rotate3d(0,1,1,${data.frame*3.6}deg)`;
             // (data.frame > 100 && data.frame < 150) ? $(".custom-tooltip-1").show() : $(".custom-tooltip-1").hide()
             // xline.css('transform', `rotateY(${data.frame*1.8}deg)`)
             // xline.css('transform', `rotateY(${data.frame*1.8}deg) rotateZ(${data.frame*1.8}deg)`)
             // aline.css('transform', `rotate3d(0,1,1,140deg) rotate3d(0,1,1,${data.frame*1.8}deg)`)
-
             // bline.css('transform', `rotate3d(0,1,1,${data.frame*1.8}deg) translateX(-50%) `)
             
         },

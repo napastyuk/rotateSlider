@@ -1,0 +1,96 @@
+body {
+    margin: 1rem;
+}
+
+.slider-wrapper {
+    aspect-ratio: 1/1;
+    width: 100%;
+    height: 100%;
+    max-width: calc(100vw - 4rem);
+    max-height: calc(100vh - 4rem);
+    /* position: absolute; */
+    /* display: flex; */
+    position: relative;
+}
+
+#coordinate-grid {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 1px solid red;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    perspective: 1000px;
+    /* perspective-origin: center 50%; */
+}
+
+.cg-yAxis {
+    border: 1px solid red;
+    width: 0px;
+    height: 72%;
+    position: absolute;
+    left:50%;
+    bottom: 27%;
+}
+
+.cg-xAxis {
+    border: 1px solid red;
+    width: 70%;
+    height: 0px;
+    position: absolute;
+    left:50%;
+    top:73%;
+    transform-origin: 0% 73%;
+}
+
+.cg-circleOne {
+    border: 1px solid red;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 73%;
+    transform: translateX(-50%) translateY(-50%) rotateX(90deg);
+    background-color: darkolivegreen;
+    opacity: 0.4;
+}
+
+.cg-circleOne_x {
+    border: 2px solid red;
+    width: 100%;
+    height: 0;
+    top: 50%;
+    position: absolute;
+}
+
+.cg-circleOne_y {
+    border: 2px solid red;
+    height: 100%;
+    width: 0;
+    left: 50%;
+    position: absolute;
+}
+
+#svg {
+    /* width: 100%;
+    height: 100%; */
+    /* position: absolute; */
+    /* z-index: 10; */
+
+    /* pointer-events: none; */
+    /* outline: 1px solid red; */
+}
+
+/* .custom-tooltip-1 {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    background-color: rgb(43 209 222 / 16%);
+    border: 2px solid green;
+    width: 100px;
+    padding: 0.5rem;
+} */
