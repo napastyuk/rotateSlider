@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <!-- compressed version -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.js" integrity="sha512-1lagjLfnC1I0iqH9plHYIUq3vDMfjhZsLy9elfK89RBcpcRcx4l+kRJBSnHh2Mh6kLxRHoObD1M5UTUbgFy6nA==" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/spritespin/3.4.3/spritespin.min.js" integrity="sha512-7ObWt3sRTlmw8H8Fc95UoaqpI/3VBBFFn8TnlzKONKHGEXkzDelJmEiOAlff9eTQ7rv/a/XOkNwYajH9buR/0Q==" crossorigin="anonymous"></script> -->
+
+    <!-- uncompressed version  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src='https://unpkg.com/spritespin@x.x.x/release/spritespin.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js" integrity="sha512-p3Tp2zn+wApBreZCgRkmMwnfpN8MUPXzzOihXx7iGYXqE7t6m9drY8HeyMeeFuDWiTFKrGUrq3jpbT0vX6zY/Q==" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</head>
+
+<body>
+    
+    <div class="slider-wrapper">
+        <div id="svg"></div>
+        <div id='mySpriteSpin'></div>
+        <!-- <div class="custom-tooltip-1" hidden>Это сообщение показывается только с 100 по 150 кадр</div> -->
+    </div>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .slider-wrapper {
+            aspect-ratio: 1/1;
+            width: 100%;
+            height: 100%;
+            max-width: 90vw;
+            max-height: 90vh;
+            margin: 5vh auto;
+        }
+
+        #svg {
+            position: absolute;
+            z-index: 10;
+            /* width: 100%;
+            height: 100%; */
+            pointer-events: none;
+            outline: 1px solid red;
+        }
+
+        /* .custom-tooltip-1 {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            background-color: rgb(43 209 222 / 16%);
+            border: 2px solid green;
+            width: 100px;
+            padding: 0.5rem;
+        } */
+    </style>
+</body>
+
+</html>
