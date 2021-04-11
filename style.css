@@ -48,20 +48,20 @@ body {
 .cg-yAxis {
   border: 1px solid red;
   width: 0px;
-  height: 72%;
+  height: 50%;
   position: absolute;
   left: 50%;
-  bottom: 27%;
+  bottom: 50%;
 }
 
 .cg-xAxis {
   border: 1px solid red;
-  width: 70%;
+  width: 50%;
   height: 0px;
   position: absolute;
   left: 50%;
-  top: 73%;
-  transform-origin: 0% 73%;
+  top: 50%;
+  /* transform-origin: 0% 73%; */
 }
 
 .cg-circleOne {
