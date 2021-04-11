@@ -1,4 +1,5 @@
 window.onload = function () {
+
   $("#mySpriteSpin").spritespin({
     source: SpriteSpin.sourceArray("img/zol{frame}.jpg", {
       frame: [1, 100],
@@ -50,12 +51,17 @@ window.onload = function () {
       //console.log('onFrameChanged');
     },
   });
+
+  (function(){
+    let tootipCloseBtn = document.querySelector('#popup > .popup__closeBtn');
+    tootipCloseBtn.addEventListener('click', (e)=> document.getElementById('popup').hidden = true);
+  })()
 };
 
 function drowSVGTooltips() {
     //константы
-    const targetX = 50; //куда указывать X
-    const targetY = 50; //куда указывать Y
+    const targetX = 56; //куда указывать X
+    const targetY = 29; //куда указывать Y
     const colorName = "rgba(0, 0, 0, 0.2)";
     let textInTooltip = '<div style="font-family:system-ui;font-size:2px">- Смолчал хозяин, да и то, что мог сказать - Мне невдомёк, что во владениях чертога</div>';
     let content = "Видовой ресторан"; // \n для переноса строки
@@ -64,12 +70,18 @@ function drowSVGTooltips() {
     //инициализация корневого svg объекта для рисования
     const draw = SVG().addTo("#svg-layer").size("100", "100").viewbox('0 0 100 100');
 
+    draw.click(function(e) {
+      // console.log(e);
+    });
+
         //для каждого тултипа
-        const nestedGroup = draw.group().css('pointer-events','auto');;
+        const nestedGroup = draw.group().attr('data-place','restaurant').css('pointer-events','auto').click(function(e) {
+          openPopup(e.target.closest('g').dataset.place);
+        });
         const rect = nestedGroup.rect("20", "5").radius(1).attr({ fill: colorName }); // svg>rect прямоугольник для фона, размеры пока захардкожены(!) что бы не вводить функцию вычисления размера текста
         const text = nestedGroup.text(content).font(textStyleObj).css('user-select','none'); //svg>a>text вставляем контент и добавляем стили для текста
         text.cx(rect.bbox().cx).cy(rect.bbox().cy); //центрируем получившийся текст относительно rect
-        nestedGroup.move(20,20); //перемацам тултип поближе к зданию
+        nestedGroup.move(15,15); //переместим тултип поближе к зданию
 
         //добавляем указывающую линию до нужной точки
         const pointLine = draw.line().stroke(colorName).attr({"stroke-linecap": "round", "stroke-width": 0.4});
@@ -79,10 +91,30 @@ function drowSVGTooltips() {
         pointLine.plot(nearestCorner.x, nearestCorner.y, targetX, targetY);
 
         //опционально: включаем перетаскивание и обновляем нарисованную линию в момент drag&drop-а
-        nestedGroup.draggable().on("dragmove", (e) => {
-            let nearestCorner = getNearestCorner(nestedGroup, targetX, targetY);
-            pointLine.plot(nearestCorner.x, nearestCorner.y, targetX, targetY);
-        });
+        // nestedGroup.draggable().on("dragmove", (e) => {
+        //     let nearestCorner = getNearestCorner(nestedGroup, targetX, targetY);
+        //     pointLine.plot(nearestCorner.x, nearestCorner.y, targetX, targetY);
+        // });
+}
+
+function openPopup(popupName) {
+  if (content.hasOwnProperty(popupName)) {
+
+    let popUpWrapper = document.querySelector('#popup');
+    
+    let popUpHeader = popUpWrapper.querySelector('.popup__header');
+    popUpHeader.textContent = content[popupName].header;
+    
+    let popUpImg = popUpWrapper.querySelector('.popup__img > img')
+    popUpImg.src = content[popupName].imgPath;
+    
+    let popUpContent = popUpWrapper.querySelector('.popup__text>p');
+    popUpContent.textContent = content[popupName].content;
+    
+    popUpWrapper.hidden = false;
+  } else {
+    console.log('toopltip не найден');
+  }
 }
 
 //хелпер - вычисляем ближайший угол прямоугольника к целевой точке
@@ -140,4 +172,13 @@ function getNearestCorner(rectangleEl, targetX, targetY) {
   }
 
   return minimalValue.coordinates;
+}
+
+//контент для тултипов
+const content= {
+  restaurant: {
+    header: "Видовой ресторан",
+    imgPath: "tooltip-img/restaurant.jpg",
+    content: "Кафе и рестораны различного класса. Для сотрудников многочисленных офисов будут организованы недорогие столовые."
+  }
 }
