@@ -8,8 +8,6 @@ body {
     height: 100%;
     max-width: calc(100vw - 4rem);
     max-height: calc(100vh - 4rem);
-    /* position: absolute; */
-    /* display: flex; */
     position: relative;
 }
 
@@ -75,22 +73,17 @@ body {
     position: absolute;
 }
 
-#svg {
-    /* width: 100%;
-    height: 100%; */
-    /* position: absolute; */
-    /* z-index: 10; */
-
-    /* pointer-events: none; */
-    /* outline: 1px solid red; */
+#svg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
 }
 
-/* .custom-tooltip-1 {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    background-color: rgb(43 209 222 / 16%);
-    border: 2px solid green;
-    width: 100px;
-    padding: 0.5rem;
-} */
+#svg-layer>svg {
+    width: 100%;
+    height: 100%;
+}
+
