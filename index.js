@@ -9,6 +9,11 @@ window.onload = function () {
     sizeMode: "fit",
     animate: false,
     responsive: true,
+    plugins: [
+      'progress',
+      '360',
+      'drag'
+    ],
     onInit: function (e, data) {
       //прошла инициализация слайдера, картинки еще не загрузились
       //console.log('onInit');
