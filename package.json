@@ -4,7 +4,7 @@
   "description": "rotate slider packed for production version",
   "scripts": {
     "start": "parcel serve ./src/index.html --out-dir temp --no-hmr --no-source-maps --no-autoinstall",
-    "github-build": "parcel build ./src/index.html --out-dir docs --no-source-maps --no-cache --no-content-hash --no-autoinstall",
+    "github-build": "parcel build ./src/index.html --out-dir docs  --public-url ./ --no-source-maps --no-cache --no-content-hash --no-autoinstall",
     "build": "parcel build ./src/index.html --out-dir build --no-source-maps --no-cache --no-content-hash --no-autoinstall",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
