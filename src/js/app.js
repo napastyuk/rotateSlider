@@ -1,8 +1,20 @@
-window.onload = function () {
-  
+import jQuery from "jquery";
+window.$ = window.jQuery = jQuery;
+var SpriteSpin = require("spritespin");
+import { SVG } from '@svgdotjs/svg.js';
+import content from "./content.json";
 
+window.onload = function () {
+  $(function () {
+    let tooltipArr = drowSVGTooltips();
+    initSlider(tooltipArr);
+    addTooltipEvents();
+  });
+};
+
+function initSlider(tooltipArr) {
   $("#mySpriteSpin").spritespin({
-    source: SpriteSpin.sourceArray("img/zol{frame}.jpg", {
+    source: SpriteSpin.sourceArray("img/frames/zol{frame}.jpg", {
       frame: [1, 100],
       digits: 4,
     }),
@@ -12,58 +24,25 @@ window.onload = function () {
     animate: false,
     responsive: true,
     plugins: ["progress", "360", "drag"],
-    onInit: function (e, data) {
-      //прошла инициализация слайдера, картинки еще не загрузились
-      //console.log('onInit');
-    },
-
-    onProgress: function (e, data) {
-      //произошла загрузка одной из картинок для слайдера
-      //console.log('onProgress');
-    },
-
-    onLoad: function (e, data) {
-      //произошла загрузка всех картинок для слайдера, слайдер готов отрисовывать
-      //console.log('onLoad');
-    },
-
     onComplete: function (e, data) {
-      
       //все что нужно загрузилось, и отрисовалась первая картинка
-      //console.log('onComplete');
-      document.querySelector('#svg-layer').hidden = false;
+      document.querySelector("#svg-layer").hidden = false;
       updateTooltips(tooltipArr, data.frame);
     },
-
-    onDraw: function (e, data) {
-      //когда прошли вычисления для измения кадра и кадр сейчас будет отрисован
-      //console.log('onDraw');
-    },
-
     onFrame: function (e, data) {
-      //когда поступил запрос на изменение текущего кадра
-      //console.log("текущий кадр", data.frame);
-      // console.log("текущий угл", angles[data.frame]);
-
+      //поступил запрос на изменение текущего кадра
       updateTooltips(tooltipArr, data.frame);
-    },
-
-    onFrameChanged: function (e, data) {
-      //когда текущий кадр уже изменился
-      //console.log('onFrameChanged');
     },
   });
+}
 
-  tooltipArr = drowSVGTooltips();
-
-  (function () {
-    let tootipCloseBtn = document.querySelector("#popup > .popup__closeBtn");
-    tootipCloseBtn.addEventListener(
-      "click",
-      (e) => (document.getElementById("popup").hidden = true)
-    );
-  })();
-};
+function addTooltipEvents() {
+  let tootipCloseBtn = document.querySelector("#popup > .popup__closeBtn");
+  tootipCloseBtn.addEventListener(
+    "click",
+    (e) => (document.getElementById("popup").hidden = true)
+  );
+}
 
 function drowSVGTooltips() {
   //инициализация корневого svg объекта для рисования
@@ -74,8 +53,8 @@ function drowSVGTooltips() {
 
   let restoranTooltip = dropTooltipItem(draw);
 
-  let tooltipArray=[];
-  tooltipArray.push(restoranTooltip)
+  let tooltipArray = [];
+  tooltipArray.push(restoranTooltip);
   return tooltipArray;
 }
 
@@ -101,37 +80,43 @@ function dropTooltipItem(draw) {
       openPopup(e.target.closest("g").dataset.place);
     });
   const rect = nestedGroup.rect("20", "5").radius(1).attr({ fill: colorName }); // прямоугольник для фона, размеры пока захардкожены(!) что бы не вводить функцию вычисления размера текста
-  const text = nestedGroup.text(content).font(textStyleObj).css("user-select", "none"); //вставляем контент и добавляем стили для текста
+  const text = nestedGroup
+    .text(content)
+    .font(textStyleObj)
+    .css("user-select", "none"); //вставляем контент и добавляем стили для текста
   //text.cx(rect.rbox().cx).cy(rect.rbox().cy); //центрируем получившийся текст , пока не работает
-  text.dmove(1,0.5);
+  text.dmove(1, 0.5);
   nestedGroup.move(15, 15); //переместим тултип поближе к зданию
 
   let nearestCorner = getNearestCorner(nestedGroup, targetX, targetY);
   //добавляем указывающую линию до нужной точки
   const pointLine = draw
-    .line(34.7,19.7,56, 29) 
+    .line(34.7, 19.7, 56, 29)
     .stroke(colorName)
     .attr({ "stroke-linecap": "round", "stroke-width": 0.4 });
-  //console.log(pointLine)
 
-  //опционально: включаем перетаскивание и обновляем нарисованную линию в момент drag&drop-а
-  // nestedGroup.draggable().on("dragmove", (e) => {
-  //     let nearestCorner = getNearestCorner(nestedGroup, targetX, targetY);
-  //     pointLine.plot(nearestCorner.x, nearestCorner.y, targetX, targetY);
-  // });
-
-  return {tooltipEl:nestedGroup, lineEl:pointLine}
+  return { tooltipEl: nestedGroup, lineEl: pointLine };
 }
 
 function updateTooltips(tooltipArr, frame) {
   let currentTooltip = tooltipArr[0];
   //todo: сделать обход по массиву tooltipArr
-  if ((frame >= 0 && frame < 48)||((frame > 76 && frame < 100))) {    //кадры во время которых показывать тултип
+  if ((frame >= 0 && frame < 48) || (frame > 76 && frame < 100)) {
+    //кадры во время которых показывать тултип
     currentTooltip.tooltipEl.show();
     currentTooltip.lineEl.show();
-    let target = getCoordOnEllips(13,2,angles[frame]) //12 и 2 радиусы описывающий конкретный элипс по которому движется лииния тултипа
-    let nearestCorner = getNearestCorner(currentTooltip.tooltipEl, target.x, target.y);
-    currentTooltip.lineEl.plot(nearestCorner.x, nearestCorner.y, target.x, target.y);
+    let target = getCoordOnEllips(13, 2, angles[frame]); //12 и 2 радиусы описывающий конкретный элипс по которому движется лииния тултипа
+    let nearestCorner = getNearestCorner(
+      currentTooltip.tooltipEl,
+      target.x,
+      target.y
+    );
+    currentTooltip.lineEl.plot(
+      nearestCorner.x,
+      nearestCorner.y,
+      target.x,
+      target.y
+    );
   } else {
     currentTooltip.tooltipEl.hide();
     currentTooltip.lineEl.hide();
@@ -141,8 +126,8 @@ function updateTooltips(tooltipArr, frame) {
 function getCoordOnEllips(a, b, deg) {
   let rad = (deg * Math.PI) / 180;
   return {
-    x: a * Math.cos(rad) + 50,  //50 потому что от центра
-    y: b * Math.sin(rad) + 28,  //27 высота элипса траектории для конкретного тултипа
+    x: a * Math.cos(rad) + 50, //50 потому что от центра
+    y: b * Math.sin(rad) + 28, //27 высота элипса траектории для конкретного тултипа
   };
 }
 
@@ -327,11 +312,11 @@ const angles = [
 ];
 
 //контент для тултипов
-const content = {
-  restaurant: {
-    header: "Видовой ресторан",
-    imgPath: "tooltip-img/restaurant.jpg",
-    content:
-      "Кафе и рестораны различного класса. Для сотрудников многочисленных офисов будут организованы недорогие столовые.",
-  },
-};
+// const content = {
+//   "restaurant": {
+//     header: "Видовой ресторан",
+//     imgPath: "img/tooltip-img/restaurant.jpg",
+//     content:
+//       "Кафе и рестораны различного класса. Для сотрудников многочисленных офисов будут организованы недорогие столовые.",
+//   },
+// };

@@ -1,0 +1,47 @@
+{
+  "name": "rotate-slider",
+  "version": "1.0.0",
+  "description": "rotate slider packed for production version",
+  "scripts": {
+    "start": "parcel serve ./src/index.html --out-dir temp --no-hmr --no-source-maps",
+    "build": "parcel build ./src/index.html --out-dir build --no-source-maps --no-cache --no-content-hash --no-autoinstall",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Napastuk Ilya",
+  "license": "ISC",
+  "customDistStructure": {
+    "config": {
+      "js": [
+        ".js"
+      ],
+      "css": [
+        ".css"
+      ],
+      "img": [
+        ".svg"
+      ]
+    },
+    "options": {
+      "development": true
+    }
+  },
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticPath": "src/img",
+        "staticOutDir": "img"
+      }
+    ]
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-clean-dist": "^0.0.6",
+    "parcel-plugin-custom-dist-structure": "^1.1.17",
+    "parcel-plugin-static-files-copy": "^2.6.0"
+  },
+  "dependencies": {
+    "@svgdotjs/svg.js": "^3.0.16",
+    "jquery": "^3.6.0",
+    "spritespin": "^4.1.0"
+  }
+}
