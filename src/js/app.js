@@ -83,7 +83,7 @@ function drowSVGTooltips() {
     .viewbox("0 0 100 100");
 
     //dev ellips
-  // var ellipse = draw.ellipse().radius(13, 1).fill('rgba(255, 0, 102, 0.5)').center(50, 47)
+  //var ellipse = draw.ellipse().radius(11, 2).fill('rgba(255, 0, 102, 0.5)').center(50, 65)
 
   let tooltipArray = [];
   for (var tooltipItem in config) {
@@ -120,7 +120,7 @@ function dropTooltipItem(draw, tooltipConfig) {
         isOpenPopup = e.target.closest("g").dataset.place;  //выставляем глобальный флаг, что бы попап открылся когда анимация доёдет до 95 кадра
       }
     });
-  const rect = nestedGroup.rect("26", "5").radius(1).attr({ fill: colorName }); // прямоугольник для фона, размеры пока захардкожены(!) что бы не вводить функцию вычисления размера текста
+  const rect = nestedGroup.rect(tooltipConfig.content.tooltipTitle.length+2, "5").radius(1).attr({ fill: colorName }); // прямоугольник для фона, размеры пока захардкожены(!) что бы не вводить функцию вычисления размера текста
   const text = nestedGroup
     .text(tooltipConfig.content.tooltipTitle)  // \n для переноса строки
     .font(textStyleObj)
@@ -141,14 +141,21 @@ function dropTooltipItem(draw, tooltipConfig) {
 
 function updateTooltips(tooltipArr, currentFrame) {
   tooltipArr.forEach(currentTooltip => {
-    let startFr = currentTooltip.config.targetFrameSet.startRange;
-    let endFr = currentTooltip.config.targetFrameSet.endRange;
-    if ((currentFrame >= 0 && currentFrame < startFr) || (currentFrame > endFr && currentFrame <= 100)) {
+    let range = currentTooltip.config.targetEllips.frameRange;
+
+    function isInRange(element) {
+      return currentFrame >= element[0] && currentFrame <= element[1]
+    }
+    
+    let isShow = range.some(isInRange);
+
+
+
+    if(isShow) {
       //кадры во время которых показывать тултип
       currentTooltip.tooltipEl.show();
       currentTooltip.lineEl.show();
-      let elpSizes = currentTooltip.config.targetEllipsSizes;
-      let target = getCoordOnEllips(elpSizes.x, elpSizes.y, angles[currentFrame], elpSizes.s , elpSizes.h ); //12 и 2 радиусы описывающий конкретный элипс по которому движется лииния тултипа
+      let target = getCoordOnEllips( currentTooltip.config.targetEllips, angles[currentFrame]);
       let nearestCorner = getNearestCorner(
         currentTooltip.tooltipEl,
         target.x,
@@ -168,12 +175,19 @@ function updateTooltips(tooltipArr, currentFrame) {
   });
 }
 
-function getCoordOnEllips(a, b, deg, shift ,height) {
-  deg=deg+shift;
-  let rad = (deg * Math.PI) / 180;
+/**
+ * расчёт коодинат точки которая движется по эллипсу
+ * @param {*} ellips объект описыващий размеры и координаты эллипса
+ * @param {*} deg текущий угол поворота в градусах, shift если надо двигатся не от нуля
+ * @returns объект с координатами
+ */
+function getCoordOnEllips(ellips, deg) {
+  let dir = ellips.directionIsStraight ? 1 : -1 // направление движения по часовой или против
+  let rad = ((deg+ellips.shift) * Math.PI) / (dir*180); //градусы переведём в радианы
+
   return {
-    x: a * Math.cos(rad) + 50, //50 потому что от центра
-    y: b * Math.sin(rad) + height, //27 высота элипса траектории для конкретного тултипа
+    x: ellips.x * Math.cos(rad) + 50, //50 потому что все элипсы расположены в центре
+    y: ellips.y * Math.sin(rad) + ellips.height, //height - корректировка высоты эллипса
   };
 }
 

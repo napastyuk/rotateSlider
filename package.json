@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "rotate slider packed for production version",
   "scripts": {
-    "start": "parcel serve ./src/index.html --out-dir temp --no-hmr --no-source-maps --no-autoinstall",
+    "serve": "parcel serve ./src/index.html --out-dir temp --no-hmr --no-source-maps --no-autoinstall",
     "github-build": "parcel build ./src/index.html --out-dir docs  --public-url ./ --no-source-maps --no-cache --no-content-hash --no-autoinstall",
     "build": "parcel build ./src/index.html --out-dir build --public-url ./ --no-source-maps --no-cache --no-content-hash --no-autoinstall",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean-all": "rm -rf temp && rm -rf .cache && rm -rf docs && rm -rf build"
   },
   "author": "Napastuk Ilya",
   "license": "ISC",
