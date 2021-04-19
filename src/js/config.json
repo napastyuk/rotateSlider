@@ -1,0 +1,54 @@
+{
+  "restaurant": {
+    "slug":"restaurant",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "5",
+      "targetX":"56",
+      "targetY":"29"
+    },
+    "targetFrameSet":{
+      "startRange":"48",
+      "endRange":"76",
+      "outOfRange":true
+    },
+    "targetEllipsSizes":{
+      "x":13,
+      "y":2,
+      "s":0,
+      "h":28
+    },
+    "content": {
+      "tooltipTitle": "Видовой ресторан",
+      "header": "Pесторан и видом на Неву",
+      "imgPath": "img/tooltip-img/restaurant.png",
+      "content": "Взглянуть на город с высоты птичьего полёта и насладиться видами за чашечкой кофе можно будет в комфортном ресторане на борту нашего стеклянного лайнера."
+    }
+  },
+  "technicalFloor": {
+    "slug":"technicalFloor",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX":"37",
+      "targetY":"41"
+    },
+    "targetFrameSet":{
+      "startRange":33,
+      "endRange":98,
+      "outOfRange":true
+    },
+    "targetEllipsSizes":{
+      "x":13,
+      "y":1,
+      "s":180,
+      "h":47
+    },
+    "content": {
+      "tooltipTitle": "Tехнический этаж",
+      "header": "Tехнический этаж",
+      "imgPath": "img/tooltip-img/technical_floor.png",
+      "content": "Вся технически налаженная система здания будет находиться в определённой части помещения, что позволит быстро реагировать на неполадки."
+    }
+  }
+}
