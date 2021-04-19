@@ -1,0 +1,314 @@
+{
+  "entranceArea": {
+    "slug": "entranceArea",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Входная зона в здание",
+      "header": "Входная зона в здание",
+      "imgPath": "img/tooltip-img/entranceArea.png",
+      "content": "Главный вход здания находится между двумя башнями, что позволяет легко добраться до любой части здания."
+    }
+  },
+  "restaurant": {
+    "slug": "restaurant",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "5",
+      "targetX": "56",
+      "targetY": "29"
+    },
+    "targetFrameSet": {
+      "startRange": "48",
+      "endRange": "76",
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 2,
+      "s": 0,
+      "h": 28
+    },
+    "content": {
+      "tooltipTitle": "Pесторан с видом на Неву",
+      "header": "Pесторан с видом на Неву",
+      "imgPath": "img/tooltip-img/restaurant.png",
+      "content": "Взглянуть на город с высоты птичьего полёта и насладиться видами за чашечкой кофе можно будет в комфортном ресторане на борту нашего стеклянного лайнера."
+    }
+  },
+  "viewOffice": {
+    "slug": "viewOffice",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "5",
+      "targetX": "56",
+      "targetY": "29"
+    },
+    "targetFrameSet": {
+      "startRange": "48",
+      "endRange": "76",
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 2,
+      "s": 0,
+      "h": 28
+    },
+    "content": {
+      "tooltipTitle": "Видовые офисы",
+      "header": "Видовые офисы",
+      "imgPath": "img/tooltip-img/viewOffice.png",
+      "content": "Несколько ярусов отведено под офисные помещения площадью от 150 м2. Высота потолков – 3 метра. Видовые офисы оснащены всем необходимым техническим оборудованием. Офисы предоставляются как с уже готовой отделкой «под ключ», так и с возможностью реализации собственного дизайн-проекта. Панорамный вид на город добавляет изюминки в этот тип офисов."
+    }
+  },
+  "technicalFloor": {
+    "slug": "technicalFloor",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Tехнический этаж",
+      "header": "Tехнический этаж",
+      "imgPath": "img/tooltip-img/technicalFloor.png",
+      "content": "Вся технически налаженная система здания будет находиться в определённой части помещения, что позволит быстро реагировать на неполадки."
+    }
+  },
+  "utilityRoom": {
+    "slug": "utilityRoom",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Помещение хозяйственного назначения ",
+      "header": "Помещение хозяйственного назначения ",
+      "imgPath": "img/tooltip-img/utilityRoom.png",
+      "content": "На данном ярусе будет помещение, предназначенное для хранение уборочного инвентаря, кладовки и прочее оборудование."
+    }
+  },
+  "towerOffices": {
+    "slug": "towerOffices",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Офисные площади башни",
+      "header": "Офисные площади башни",
+      "imgPath": "img/tooltip-img/towerOffices.png",
+      "content": "Несколько ярусов отведено под офисные помещения площадью от 150 м2. Высота потолков – 3 метра. Офисы оснащены всем необходимым техническим оборудованием. Офисы предоставляются как с уже готовой отделкой «под ключ», так и с возможностью реализации собственного дизайн-проекта."
+    }
+  },
+  "cafe": {
+    "slug": "cafe",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Кафе",
+      "header": "Кафе",
+      "imgPath": "img/tooltip-img/cafe.png",
+      "content": "Помимо видового ресторана Вы сможете отдохнуть и пообедать в комфортных кафе, которые расположены на разных территориях всего лайнера. Это позволит грамотно распределять своё время и выбирать удобное место для перерыва, чтобы не пришлось проходить через все ярусы."
+    }
+  },
+  "fitnessClub": {
+    "slug": "fitnessClub",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Фитнес-клуб",
+      "header": "Фитнес-клуб",
+      "imgPath": "img/tooltip-img/fitnessClub.png",
+      "content": "После работы, в перерыв или же в свой выходной можно провести свой досуг в фитнес-клубе. Фитнес залы оснащены всем необходимым оборудованием для комфортных и продуктивных тренировок."
+    }
+  },
+  "groundParking": {
+    "slug": "groundParking",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Наземная охраняемая парковка",
+      "header": "Наземная охраняемая парковка",
+      "imgPath": "img/tooltip-img/groundParking.png",
+      "content": "Наземная парковка рассчитана на 12 машиномест. Она охраняется, поэтому вы можете не переживать о сохранности вашего автомобиля."
+    }
+  },
+  "undergroundParking": {
+    "slug": "undergroundParking",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Подземный паркинг",
+      "header": "Подземный паркинг",
+      "imgPath": "img/tooltip-img/undergroundParking.png",
+      "content": "Паркинг охраняется и рассчитан на 99 машиномест. В подземный паркинг можно будет спуститься на лифте."
+    }
+  },
+  "restroom": {
+    "slug": "restroom",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Комната отдыха",
+      "header": "Комната отдыха",
+      "imgPath": "img/tooltip-img/restroom.png",
+      "content": "На каждом ярусе Вы сможете найти комнату отдыха, где комфортно расположившись на диванах, можно отдохнуть от насущных проблем и восстановить силы."
+    }
+  },
+  "conferenceHall": {
+    "slug": "conferenceHall",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Конференц-зал",
+      "header": "Конференц-зал",
+      "imgPath": "img/tooltip-img/conferenceHall.png",
+      "content": "Конференц-залы будут оснащены всем необходимым оборудованием для проведения успешных презентаций и обсуждения насущных задач. Современные проекторы, флип-чарты, микрофон, быстрый интернет – и это ещё не полный список для создания деловой и комфортной обстановки."
+    }
+  }
+}

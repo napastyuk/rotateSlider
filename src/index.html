@@ -16,7 +16,7 @@
             <div class="cg-yAxis"></div>
             <div class="cg-xAxis"></div>
         </div> -->
-        <div id="popup" hidden>
+        <div id="popup" style="display: none;">
             <div class="popup__closeBtn"></div>
             <div class="popup__contentWrapper">
                 <div class="popup__img">
@@ -30,6 +30,13 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="debug">
+        <input class="spritespin-slider" type="range">
+        <button class="spritespin-prevFrame">Предыдущий кадр</button>
+        <button class="spritespin-nextFrame">Следующий кадр</button>
+        <p class="debug__curFrame">Текущий кадр<input type="text"></p>
+        <p class="debug__curAngle">Текущий угол<input type="text" readonly="readonly"></p>
     </div>
 </body>
 

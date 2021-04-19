@@ -1,0 +1,54 @@
+{
+  "entranceArea": {
+    "slug": "entranceArea",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "15",
+      "targetX": "37",
+      "targetY": "41"
+    },
+    "targetFrameSet": {
+      "startRange": 33,
+      "endRange": 98,
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 1,
+      "s": 180,
+      "h": 47
+    },
+    "content": {
+      "tooltipTitle": "Входная зона в здание",
+      "header": "Входная зона в здание",
+      "imgPath": "img/tooltip-img/entranceArea.png",
+      "content": "Главный вход здания находится между двумя башнями, что позволяет легко добраться до любой части здания."
+    }
+  },
+  "restaurant": {
+    "slug": "restaurant",
+    "defaultCoord": {
+      "tooltipX": "5",
+      "tooltipY": "5",
+      "targetX": "56",
+      "targetY": "29"
+    },
+    "targetFrameSet": {
+      "startRange": "48",
+      "endRange": "76",
+      "outOfRange": true
+    },
+    "targetEllipsSizes": {
+      "x": 13,
+      "y": 2,
+      "s": 0,
+      "h": 28
+    },
+    "content": {
+      "tooltipTitle": "Pесторан с видом на Неву",
+      "header": "Pесторан с видом на Неву",
+      "imgPath": "img/tooltip-img/restaurant.png",
+      "content": "Взглянуть на город с высоты птичьего полёта и насладиться видами за чашечкой кофе можно будет в комфортном ресторане на борту нашего стеклянного лайнера."
+    }
+  }
+}

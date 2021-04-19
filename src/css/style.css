@@ -1,5 +1,7 @@
 body {
   margin: 1rem;
+  display: flex;
+  align-items: flex-start;
 }
 
 .slider-wrapper {
@@ -119,6 +121,7 @@ body {
   left: 0;
   right: 0;
   pointer-events: none;
+  outline: 1px solid grey;
 }
 
 #popup .popup__closeBtn {
@@ -210,4 +213,9 @@ body {
   width: 0;
   left: 50%;
   position: absolute;
+}
+
+.debug, .debug > input {
+  width: 40vw;
+  padding: 0 1rem;
 }

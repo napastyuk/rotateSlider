@@ -2,7 +2,9 @@ import jQuery from "jquery";
 window.$ = window.jQuery = jQuery;
 var SpriteSpin = require("spritespin");
 import { SVG } from '@svgdotjs/svg.js';
-import config from "./config.json";
+import config from "./config-demo.json";  //контент попапов
+let sliderApi;  //ссылка на api плагина SpriteSpin
+let isOpenPopup = false; //флаг который разрешает открытие попапа по окончании анимации
 
 window.onload = function () {
   $(function () {
@@ -24,25 +26,53 @@ function initSlider(tooltipArr) {
     animate: false,
     responsive: true,
     plugins: ["progress", "360", "drag"],
+    onInit: function(e, data) {
+      $('.spritespin-slider')
+        .attr("min", 0)
+        .attr("max", data.source.length - 1)
+        .attr("value", 0)
+        .on("input", function(e) {
+          SpriteSpin.updateFrame(data, e.target.value);
+        });
+      $('.debug__curFrame > input')
+        .val(data.frame)
+        .on("input", function(e) {
+          SpriteSpin.updateFrame(data, e.target.value);
+        });
+      $('.debug__curAngle > input')
+        .val(angles.indexOf(data.frame))
+
+      $('.spritespin-nextFrame')        
+        .on("click", function(e) {
+          SpriteSpin.updateFrame(data, data.frame + 1);
+      });
+      $('.spritespin-prevFrame')        
+        .on("click", function(e) {
+          SpriteSpin.updateFrame(data, data.frame - 1);
+    });
+    },
     onComplete: function (e, data) {
       //все что нужно загрузилось, и отрисовалась первая картинка
+      sliderApi = $("#mySpriteSpin").spritespin("api");
       document.querySelector("#svg-layer").hidden = false;
       updateTooltips(tooltipArr, data.frame);
     },
     onFrame: function (e, data) {
       // console.log('текущий кадр', data.frame)
       //поступил запрос на изменение текущего кадра
+      $('.spritespin-slider').val(data.frame);
+      $('.debug__curFrame > input').val(data.frame);
+      $('.debug__curAngle > input').val(angles[data.frame]);
       updateTooltips(tooltipArr, data.frame);
+      if (data.frame === 95 && isOpenPopup) {
+        openPopup(isOpenPopup);
+      };
     },
   });
 }
 
 function addTooltipEvents() {
-  let tootipCloseBtn = document.querySelector("#popup > .popup__closeBtn");
-  tootipCloseBtn.addEventListener(
-    "click",
-    (e) => (document.getElementById("popup").hidden = true)
-  );
+  $("#popup > .popup__closeBtn").on("click", e=> $('#popup').fadeOut())
 }
 
 function drowSVGTooltips() {
@@ -78,9 +108,19 @@ function dropTooltipItem(draw, tooltipConfig) {
     .attr("data-place", tooltipConfig.slug)
     .css("pointer-events", "auto")
     .click(function (e) {
-      openPopup(e.target.closest("g").dataset.place);
+      //по клику открываем попап, но только на 95 кадре
+      //проверим находимся ли мы на 95 кадре 
+      if (sliderApi.currentFrame() === 95) {
+        openPopup(e.target.closest("g").dataset.place);
+      } else {
+        sliderApi.playTo(95, {
+          force:false,
+          nearest: true
+        });
+        isOpenPopup = e.target.closest("g").dataset.place;  //выставляем глобальный флаг, что бы попап открылся когда анимация доёдет до 95 кадра
+      }
     });
-  const rect = nestedGroup.rect("20", "5").radius(1).attr({ fill: colorName }); // прямоугольник для фона, размеры пока захардкожены(!) что бы не вводить функцию вычисления размера текста
+  const rect = nestedGroup.rect("26", "5").radius(1).attr({ fill: colorName }); // прямоугольник для фона, размеры пока захардкожены(!) что бы не вводить функцию вычисления размера текста
   const text = nestedGroup
     .text(tooltipConfig.content.tooltipTitle)  // \n для переноса строки
     .font(textStyleObj)
@@ -137,7 +177,7 @@ function getCoordOnEllips(a, b, deg, shift ,height) {
   };
 }
 
-function openPopup(popupName) {
+function openPopup(popupName) {   
   if (config.hasOwnProperty(popupName)) {
     let popUpWrapper = document.querySelector("#popup");
 
@@ -150,10 +190,12 @@ function openPopup(popupName) {
     let popUpContent = popUpWrapper.querySelector(".popup__text>p");
     popUpContent.textContent = config[popupName].content.content;
 
-    popUpWrapper.hidden = false;
+    $("#popup").fadeIn("slow");
+
   } else {
     console.log("toopltip не найден");
   }
+  isOpenPopup=false;  //скидываем флаг для нового открытия попапа
 }
 
 //хелпер - вычисляем ближайший угол прямоугольника к целевой точке
