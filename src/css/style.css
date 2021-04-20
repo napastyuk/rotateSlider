@@ -32,6 +32,17 @@ body {
   height: 1px;
 }
 
+.spritespin-progress:after {
+  content: "Для вращениия панорамы используйте мышь";
+  text-align: center;
+  color: grey;
+  font-family: system-ui;
+  display: inline-block;
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
 /*dev mode стили*/
 #coordinate-grid {
   width: 100%;
@@ -215,7 +226,8 @@ body {
   position: absolute;
 }
 
-.debug, .debug > input {
-  width: 40vw;
+.debug, .debug > input[type="range"] {
+  width: 100%;
+  max-width: calc(1024px - 2rem);
   padding: 0 1rem;
 }

@@ -1,10 +1,11 @@
 import jQuery from "jquery";
 window.$ = window.jQuery = jQuery;
 var SpriteSpin = require("spritespin");
-import { SVG } from '@svgdotjs/svg.js';
-import config from "./config-demo.json";  //контент попапов
-let sliderApi;  //ссылка на api плагина SpriteSpin
+import { SVG } from "@svgdotjs/svg.js";
+import config from "./config.json"; //контент попапов
+let sliderApi; //ссылка на api плагина SpriteSpin
 let isOpenPopup = false; //флаг который разрешает открытие попапа по окончании анимации
+let isShowTooltips = true;
 
 window.onload = function () {
   $(function () {
@@ -26,30 +27,33 @@ function initSlider(tooltipArr) {
     animate: false,
     responsive: true,
     plugins: ["progress", "360", "drag"],
-    onInit: function(e, data) {
-      $('.spritespin-slider')
+    onInit: function (e, data) {
+      $(".spritespin-slider")
         .attr("min", 0)
         .attr("max", data.source.length - 1)
         .attr("value", 0)
-        .on("input", function(e) {
+        .on("input", function (e) {
           SpriteSpin.updateFrame(data, e.target.value);
         });
-      $('.debug__curFrame > input')
-        .val(data.frame)
-        .on("input", function(e) {
-          SpriteSpin.updateFrame(data, e.target.value);
-        });
-      $('.debug__curAngle > input')
-        .val(angles.indexOf(data.frame))
 
-      $('.spritespin-nextFrame')        
-        .on("click", function(e) {
-          SpriteSpin.updateFrame(data, data.frame + 1);
+      if ($(".debug__curFrame > input").length) {
+        $(".debug__curFrame > input")
+          .val(data.frame)
+          .on("input", function (e) {
+            SpriteSpin.updateFrame(data, e.target.value);
+          });
+      }
+
+      if ($(".debug__curFrame > input").length) {
+        $(".debug__curAngle > input").val(angles.indexOf(data.frame));
+      }
+
+      $(".spritespin-nextFrame").on("click", function (e) {
+        SpriteSpin.updateFrame(data, data.frame + 1);
       });
-      $('.spritespin-prevFrame')        
-        .on("click", function(e) {
-          SpriteSpin.updateFrame(data, data.frame - 1);
-    });
+      $(".spritespin-prevFrame").on("click", function (e) {
+        SpriteSpin.updateFrame(data, data.frame - 1);
+      });
     },
     onComplete: function (e, data) {
       //все что нужно загрузилось, и отрисовалась первая картинка
@@ -60,19 +64,27 @@ function initSlider(tooltipArr) {
     onFrame: function (e, data) {
       // console.log('текущий кадр', data.frame)
       //поступил запрос на изменение текущего кадра
-      $('.spritespin-slider').val(data.frame);
-      $('.debug__curFrame > input').val(data.frame);
-      $('.debug__curAngle > input').val(angles[data.frame]);
+      $(".spritespin-slider").val(data.frame);
+      if ($(".debug__curFrame > input").length) {
+        $(".debug__curFrame > input").val(data.frame);
+      }
+      if ($(".debug__curAngle > input").length) {
+        $(".debug__curAngle > input").val(angles[data.frame]);
+      }
       updateTooltips(tooltipArr, data.frame);
       if (data.frame === 95 && isOpenPopup) {
         openPopup(isOpenPopup);
-      };
+      }
     },
   });
 }
 
 function addTooltipEvents() {
-  $("#popup > .popup__closeBtn").on("click", e=> $('#popup').fadeOut())
+  $("#popup > .popup__closeBtn").on("click", (e) => $("#popup").fadeOut());
+  $(".spritespin-switch").on("change", (e) => {
+    isShowTooltips = !isShowTooltips;
+    $("#svg-layer").toggle();
+  });
 }
 
 function drowSVGTooltips() {
@@ -82,8 +94,8 @@ function drowSVGTooltips() {
     .size("100", "100")
     .viewbox("0 0 100 100");
 
-    //dev ellips
-  //var ellipse = draw.ellipse().radius(11, 2).fill('rgba(255, 0, 102, 0.5)').center(50, 65)
+  //dev ellips
+  //var ellipse = draw.ellipse().radius(18, 10).fill('rgba(255, 0, 102, 0.5)').center(50, 70)
 
   let tooltipArray = [];
   for (var tooltipItem in config) {
@@ -96,7 +108,7 @@ function drowSVGTooltips() {
 
 function dropTooltipItem(draw, tooltipConfig) {
   //константы
-  const colorName ="rgba(0, 0, 0, 0.2)";
+  const colorName = "rgba(0, 0, 0, 0.2)";
   const textStyleObj = {
     fill: "#fff",
     family: "system-ui, serif",
@@ -104,58 +116,70 @@ function dropTooltipItem(draw, tooltipConfig) {
   };
 
   //создадим группу для прямоугольника с текстом
-  const nestedGroup = draw.group()
+  const nestedGroup = draw
+    .group()
     .attr("data-place", tooltipConfig.slug)
     .css("pointer-events", "auto")
     .click(function (e) {
       //по клику открываем попап, но только на 95 кадре
-      //проверим находимся ли мы на 95 кадре 
+      //проверим находимся ли мы на 95 кадре
       if (sliderApi.currentFrame() === 95) {
         openPopup(e.target.closest("g").dataset.place);
       } else {
         sliderApi.playTo(95, {
-          force:false,
-          nearest: true
+          force: false,
+          nearest: true,
         });
-        isOpenPopup = e.target.closest("g").dataset.place;  //выставляем глобальный флаг, что бы попап открылся когда анимация доёдет до 95 кадра
+        isOpenPopup = e.target.closest("g").dataset.place; //выставляем глобальный флаг, что бы попап открылся когда анимация доёдет до 95 кадра
       }
     });
-  const rect = nestedGroup.rect(tooltipConfig.content.tooltipTitle.length+2, "5").radius(1).attr({ fill: colorName }); // прямоугольник для фона, размеры пока захардкожены(!) что бы не вводить функцию вычисления размера текста
+
+  const rect = nestedGroup
+    .rect(tooltipConfig.content.tooltipTitle.length + 2, "5")
+    .radius(1)
+    .attr({ fill: colorName }); // прямоугольник для фона, +2 для отступов по бокам
   const text = nestedGroup
-    .text(tooltipConfig.content.tooltipTitle)  // \n для переноса строки
+    .text(tooltipConfig.content.tooltipTitle) // \n для переноса строки
     .font(textStyleObj)
     .css("user-select", "none"); //вставляем контент и добавляем стили для текста
+
   //text.cx(rect.rbox().cx).cy(rect.rbox().cy); //центрируем получившийся текст , пока не работает
   text.dmove(1, 0.5); //коррекция надписи в прямоугольнике по высоте
-  nestedGroup.move(tooltipConfig.defaultCoord.tooltipX, tooltipConfig.defaultCoord.tooltipY); //переместим тултип поближе к зданию
-  
+  nestedGroup.move(
+    tooltipConfig.defaultCoord.tooltipX,
+    tooltipConfig.defaultCoord.tooltipY
+  ); //переместим тултип поближе к зданию
+
   //добавляем указывающую линию до нужной точки
-  //let nearestCorner = getNearestCorner(nestedGroup, tooltipConfig.defaultCoord.targetX, tooltipConfig.defaultCoord.targetY);  не иммет смысла т к в момент загрузки все размеры равны нулю
+  //let nearestCorner = getNearestCorner(nestedGroup, tooltipConfig.defaultCoord.targetX, tooltipConfig.defaultCoord.targetY);  не иммет смысла т к в момент загрузки все размеры равны нулю из за того что svg отрисовывается с атрибутом hidden
   const pointLine = draw
-    .line(1, 1, tooltipConfig.defaultCoord.targetX, tooltipConfig.defaultCoord.targetY) //пока нарисуем от угла, в момент загрузки все равно обновим
+    .line(
+      1,
+      1,
+      tooltipConfig.defaultCoord.targetX,
+      tooltipConfig.defaultCoord.targetY
+    ) //пока нарисуем от угла, в момент загрузки все равно обновим
     .stroke(colorName)
     .attr({ "stroke-linecap": "round", "stroke-width": 0.4 });
 
-  return { tooltipEl: nestedGroup, lineEl: pointLine, config: tooltipConfig};
+  return { tooltipEl: nestedGroup, lineEl: pointLine, config: tooltipConfig };
 }
 
 function updateTooltips(tooltipArr, currentFrame) {
-  tooltipArr.forEach(currentTooltip => {
+  tooltipArr.forEach((currentTooltip) => {
     let range = currentTooltip.config.targetEllips.frameRange;
-
     function isInRange(element) {
-      return currentFrame >= element[0] && currentFrame <= element[1]
+      return currentFrame >= element[0] && currentFrame <= element[1];
     }
-    
     let isShow = range.some(isInRange);
-
-
-
-    if(isShow) {
+    if (isShow) {
       //кадры во время которых показывать тултип
       currentTooltip.tooltipEl.show();
       currentTooltip.lineEl.show();
-      let target = getCoordOnEllips( currentTooltip.config.targetEllips, angles[currentFrame]);
+      let target = getCoordOnEllips(
+        currentTooltip.config.targetEllips,
+        angles[currentFrame]
+      );
       let nearestCorner = getNearestCorner(
         currentTooltip.tooltipEl,
         target.x,
@@ -182,8 +206,8 @@ function updateTooltips(tooltipArr, currentFrame) {
  * @returns объект с координатами
  */
 function getCoordOnEllips(ellips, deg) {
-  let dir = ellips.directionIsStraight ? 1 : -1 // направление движения по часовой или против
-  let rad = ((deg+ellips.shift) * Math.PI) / (dir*180); //градусы переведём в радианы
+  let dir = ellips.directionIsStraight ? 1 : -1; // направление движения по часовой или против
+  let rad = ((deg + ellips.shift) * Math.PI) / (dir * 180); //градусы переведём в радианы
 
   return {
     x: ellips.x * Math.cos(rad) + 50, //50 потому что все элипсы расположены в центре
@@ -191,7 +215,7 @@ function getCoordOnEllips(ellips, deg) {
   };
 }
 
-function openPopup(popupName) {   
+function openPopup(popupName) {
   if (config.hasOwnProperty(popupName)) {
     let popUpWrapper = document.querySelector("#popup");
 
@@ -205,16 +229,14 @@ function openPopup(popupName) {
     popUpContent.textContent = config[popupName].content.content;
 
     $("#popup").fadeIn("slow");
-
   } else {
     console.log("toopltip не найден");
   }
-  isOpenPopup=false;  //скидываем флаг для нового открытия попапа
+  isOpenPopup = false; //скидываем флаг для нового открытия попапа
 }
 
 //хелпер - вычисляем ближайший угол прямоугольника к целевой точке
 function getNearestCorner(rectangleEl, targetX, targetY) {
-
   //занесём в переменные координаты углов прямоугольника и целевой точки
   let topLeft = { x: rectangleEl.bbox().x, y: rectangleEl.bbox().y };
   let topRight = { x: rectangleEl.bbox().x2, y: rectangleEl.bbox().y };
@@ -373,5 +395,3 @@ const angles = [
   29,
   32,
 ];
-
-
