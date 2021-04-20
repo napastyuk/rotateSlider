@@ -232,7 +232,7 @@
   "restroom": {
     "slug": "restroom",
     "defaultCoord": {
-      "tooltipX": "82",
+      "tooltipX": "80",
       "tooltipY": "22",
       "targetX": "37",
       "targetY": "60"
@@ -255,7 +255,7 @@
   "conferenceHall": {
     "slug": "conferenceHall",
     "defaultCoord": {
-      "tooltipX": "82",
+      "tooltipX": "81",
       "tooltipY": "28",
       "targetX": "37",
       "targetY": "60"

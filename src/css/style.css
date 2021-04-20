@@ -121,6 +121,10 @@ body {
   height: 100%;
 }
 
+#svg-layer svg > g:hover rect {
+  fill: rgb(2 165 232 / 20%);
+}
+
 /*стили для popup-а*/
 #popup {
   width: 100%;
