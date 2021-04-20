@@ -125,6 +125,10 @@ body {
   fill: rgb(2 165 232 / 20%);
 }
 
+#svg-layer svg > g:hover + line {
+  /* stroke: rgb(2 165 232 / 20%); */
+}
+
 /*стили для popup-а*/
 #popup {
   width: 100%;

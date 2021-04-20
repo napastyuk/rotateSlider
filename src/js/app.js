@@ -119,6 +119,7 @@ function dropTooltipItem(draw, tooltipConfig) {
   const nestedGroup = draw
     .group()
     .attr("data-place", tooltipConfig.slug)
+    .addClass(`tooltip-group__${tooltipConfig.slug}`)
     .css("pointer-events", "auto")
     .click(function (e) {
       //по клику открываем попап, но только на 95 кадре
@@ -160,7 +161,8 @@ function dropTooltipItem(draw, tooltipConfig) {
       tooltipConfig.defaultCoord.targetY
     ) //пока нарисуем от угла, в момент загрузки все равно обновим
     .stroke(colorName)
-    .attr({ "stroke-linecap": "round", "stroke-width": 0.4 });
+    .attr({ "stroke-linecap": "round", "stroke-width": 0.4 })
+    .addClass(`tooltip-group__${tooltipConfig.slug}`);
 
   return { tooltipEl: nestedGroup, lineEl: pointLine, config: tooltipConfig };
 }
