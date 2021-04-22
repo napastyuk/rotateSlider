@@ -6,10 +6,16 @@ import { SVG } from "@svgdotjs/svg.js";
 let sliderApi; //ссылка на api плагина SpriteSpin
 let isOpenPopup = false; //флаг который разрешает открытие попапа по окончании анимации
 var config //объект с контентом для попапа
+let frameExt; //строка с форматом изображений для кадров
 //let isShowTooltips = true; //флаг для чекбокса что бы можно было скрывать тултипы 
 
 
 window.onload = function () {
+  //проверим поддреживаемый браузером формат изображений
+  Modernizr.on('webp', function(result) {
+    frameExt = result ? "webp":"jpg";
+  });
+
   //загружаем контент
   fetch('config.json')
   .then(response => response.json())
@@ -31,7 +37,7 @@ window.onload = function () {
  */
 function initSlider(tooltipArr) {
   $("#mySpriteSpin").spritespin({
-    source: SpriteSpin.sourceArray("img/frames/zol{frame}.jpg", {
+    source: SpriteSpin.sourceArray(`img/frames-${frameExt}/zol{frame}.${frameExt}`, {
       frame: [1, 100],
       digits: 4,
     }),

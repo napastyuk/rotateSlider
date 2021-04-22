@@ -31,7 +31,9 @@
         "staticOutDir": "img"
       },
       {
-        "staticPath": ["src/js/config.json"]
+        "staticPath": [
+          "src/js/config.json"
+        ]
       }
     ]
   },
