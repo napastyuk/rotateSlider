@@ -29,6 +29,9 @@
       {
         "staticPath": "src/img",
         "staticOutDir": "img"
+      },
+      {
+        "staticPath": ["src/js/config.json"]
       }
     ]
   },

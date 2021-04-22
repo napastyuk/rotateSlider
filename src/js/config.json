@@ -187,17 +187,17 @@
     "slug": "groundParking",
     "defaultCoord": {
       "tooltipX": "66",
-      "tooltipY": "16",
+      "tooltipY": "7",
       "targetX": "37",
       "targetY": "20"
     },
     "targetEllips": {
-      "x": 18,
-      "y": 10,
-      "shift": -90,
-      "height": 66,
-      "directionIsStraight": false,
-      "frameRange": [[10,14],[95,100]]
+      "x": 6,
+      "y": 3,
+      "shift": 0,
+      "height": 70,
+      "directionIsStraight": true,
+      "frameRange": [[0,9],[86,100]]
     },
     "content": {
       "tooltipTitle": "Наземная охраняемая парковка  ",
@@ -215,12 +215,12 @@
       "targetY": "27"
     },
     "targetEllips": {
-      "x": 18,
-      "y": 10,
+      "x": 16,
+      "y": 5,
       "shift": -70,
       "height": 70,
       "directionIsStraight": false,
-      "frameRange": [[0,25]]
+      "frameRange": [[0,19],[90,100]]
     },
     "content": {
       "tooltipTitle": "Подземный паркинг  ",
