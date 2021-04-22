@@ -5,8 +5,9 @@ import { SVG } from "@svgdotjs/svg.js";
 // import config from "./config.json"; //контент попапов не включаем в бандл, а запрашиваем отдельно
 let sliderApi; //ссылка на api плагина SpriteSpin
 let isOpenPopup = false; //флаг который разрешает открытие попапа по окончании анимации
-let isShowTooltips = true; //флаг для чекбокса что бы можно было скрывать тултипы 
 var config //объект с контентом для попапа
+//let isShowTooltips = true; //флаг для чекбокса что бы можно было скрывать тултипы 
+
 
 window.onload = function () {
   //загружаем контент
@@ -42,7 +43,7 @@ function initSlider(tooltipArr) {
     plugins: ["progress", "360", "drag"],
     onInit: function (e, data) {
       //слайдер инициазировался, началась загрузка картинок
-      
+
       //навесим события на интерактивные элементы, пока выключены
       // $(".spritespin-slider")
       //   .attr("min", 0)
